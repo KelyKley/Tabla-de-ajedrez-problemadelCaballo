@@ -1,5 +1,7 @@
 var generar = document.getElementById('ejecutar');
+var pasos = document.getElementById("paso");
 var tablero = document.getElementById('tablero');
+var solucion = document.getElementById("siguente");
 
 function printMatrix (M){
     console.log ("___________________");
@@ -111,6 +113,76 @@ function initMatrix (n) {
 }
 
 generar.onclick = function () {
+    tablero.innerHTML = '';
+    var n = parseInt(document.getElementById('lados').value);
+    
+ /*   for( var i = 0; i < 1000; i++) {
+        var M = initMatrix (n);
+        var helper = gen_heuristic (n);
+        if (gen_solution (M, helper, n) ) {
+            printMatrix (M);
+            break;
+        }
+    }
+    */
+    var tabla = document.createElement('table');
+    tabla.border = "1";
+    for (var i = 0; i < n; i++) {
+        var fila = document.createElement('tr');
+        for (var j = 0; j < n; j++) {
+            var celda = document.createElement('td');
+            if (i % 2 == 0 && j % 2 != 0 || i % 2 != 0 && j % 2 == 0) {
+                celda.setAttribute('class', 'negro');
+            }
+           // var p = document.createElement('p');
+           // p.innerHTML = M[i][j];
+           // celda.appendChild(p);
+            
+            fila.appendChild(celda);
+        }
+        tabla.appendChild(fila);
+    }
+    tablero.appendChild(tabla);
+}
+
+
+pasos.onclick = function(M){
+
+tablero.innerHTML = '';
+    var n = parseInt(document.getElementById('lados').value);
+    
+    for( var i = 0; i < 1000; i++) {
+        var M = initMatrix (n);
+        var helper = gen_heuristic (n);
+        if (gen_solution (M, helper, n) ) {
+            printMatrix (M);
+            break;
+        }
+    }
+    
+    var tabla = document.createElement('table');
+    tabla.border = "1";
+    for (var i = 0; i < n; i++) {
+        var fila = document.createElement('tr');
+        for (var j = 0; j < n; j++) {
+            var celda = document.createElement('td');
+            if (i % 2 == 0 && j % 2 != 0 || i % 2 != 0 && j % 2 == 0) {
+                celda.setAttribute('class', 'negro');
+            }
+            var p = document.createElement('p');
+            p.innerHTML = M[i][j];
+            celda.appendChild(p);
+            
+            fila.appendChild(celda);
+        }
+        tabla.appendChild(fila);
+    }
+    tablero.appendChild(tabla);  
+    
+}
+
+
+solucion.onclick = function () {
     tablero.innerHTML = '';
     var n = parseInt(document.getElementById('lados').value);
     
