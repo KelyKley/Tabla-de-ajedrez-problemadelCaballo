@@ -1,5 +1,4 @@
 var generar = document.getElementById('ejecutar');
-var pasos = document.getElementById("paso");
 var tablero = document.getElementById('tablero');
 var solucion = document.getElementById("siguente");
 
@@ -135,7 +134,7 @@ generar.onclick = function () {
                 celda.setAttribute('class', 'negro');
             }
            // var p = document.createElement('p');
-           // p.innerHTML = M[i][j];
+           //p.innerHTML = M[i][j];
            // celda.appendChild(p);
             
             fila.appendChild(celda);
@@ -144,43 +143,6 @@ generar.onclick = function () {
     }
     tablero.appendChild(tabla);
 }
-
-
-pasos.onclick = function(M){
-
-tablero.innerHTML = '';
-    var n = parseInt(document.getElementById('lados').value);
-    
-    for( var i = 0; i < 1000; i++) {
-        var M = initMatrix (n);
-        var helper = gen_heuristic (n);
-        if (gen_solution (M, helper, n) ) {
-            printMatrix (M);
-            break;
-        }
-    }
-    
-    var tabla = document.createElement('table');
-    tabla.border = "1";
-    for (var i = 0; i < n; i++) {
-        var fila = document.createElement('tr');
-        for (var j = 0; j < n; j++) {
-            var celda = document.createElement('td');
-            if (i % 2 == 0 && j % 2 != 0 || i % 2 != 0 && j % 2 == 0) {
-                celda.setAttribute('class', 'negro');
-            }
-            var p = document.createElement('p');
-            p.innerHTML = M[i][j];
-            celda.appendChild(p);
-            
-            fila.appendChild(celda);
-        }
-        tabla.appendChild(fila);
-    }
-    tablero.appendChild(tabla);  
-    
-}
-
 
 solucion.onclick = function () {
     tablero.innerHTML = '';
@@ -213,4 +175,51 @@ solucion.onclick = function () {
         tabla.appendChild(fila);
     }
     tablero.appendChild(tabla);
+}
+
+var pasos = document.getElementById("paso");
+
+pasos.onclick = function(){
+    tablero.innerHTML = '';
+    var n = parseInt(document.getElementById('lados').value);
+    
+    for( var i = 0; i < 1000; i++) {
+        var M = initMatrix (n);
+        var helper = gen_heuristic (n);
+        if (gen_solution (M, helper, n) ) {
+            pasoApaso(M);
+            break;
+        }
+    }
+
+    var tabla = document.createElement('table');
+    tabla.border = "1";
+    for (var i = 0; i < n; i++) {
+        var fila = document.createElement('tr');
+        for (var j = 0; j < n; j++) {
+            var celda = document.createElement('td');
+            if (i % 2 == 0 && j % 2 != 0 || i % 2 != 0 && j % 2 == 0) {
+                celda.setAttribute('class', 'negro');
+            }
+            var p = document.createElement('p');
+            for(var k = 0; k<n; k++){
+              if(M[i][j]==k)
+              p.innerHTML = M[i][j];
+            }
+            celda.appendChild(p);
+            
+            fila.appendChild(celda);
+        }
+        tabla.appendChild(fila);
+    }
+    tablero.appendChild(tabla);
+}
+
+function pasoApaso(M){
+    var n = parseInt(document.getElementById('lados').value);
+
+    console.log ("___________________");
+    for (var i = 0; i < M.length; i++)
+        console.log (M[i][0]);   
+    console.log ("___________________");
 }
