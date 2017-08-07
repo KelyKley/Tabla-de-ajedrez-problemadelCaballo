@@ -1,9 +1,12 @@
+@import url('https://fonts.googleapis.com/css?family=Anton|Rajdhani');
+
 *{
 	text-align: center;
 }
 
 body{
-	background: salmon;
+	background-image: url(https://wallpaperstock.net/wallpapers/thumbs1/36588wide.png);
+	padding: 15px;
 }
 
 .negro{
@@ -22,9 +25,17 @@ table{
 }
 
 h1{
-	padding: 10px;
+    font-family: 'Anton', sans-serif;
+	box-shadow: 5px 5px 5px gray;
+	color: white;
+	-webkit-text-stroke: 1px gray;
+	border: 2px solid white;
+	border-radius: 15px;
+	padding: 40px;
+	text-align: center;
+	font-size: 60px;
 	text-transform: uppercase;
-	text-decoration: blink;
+	background-image: url(http://www.clubinternacionalelcentro.org/sites/default/files/images/ajedres.jpg);
 }
 
 button{
@@ -33,4 +44,16 @@ button{
 
 button:hover{
 	background-color: #eee;
+}
+
+td, tr{
+	border-radius: 3px;
+}
+
+p{
+	font-family: 'Rajdhani', sans-serif;
+}
+
+#nume{
+	color: white;
 }
