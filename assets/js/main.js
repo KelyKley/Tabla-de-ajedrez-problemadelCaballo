@@ -1,6 +1,9 @@
 var generar = document.getElementById('ejecutar');
 var tablero = document.getElementById('tablero');
 var solucion = document.getElementById("siguente");
+var pasos = document.getElementById("paso");
+
+//Muestra en la consola los posibles resultadoa.
 
 function printMatrix (M){
     console.log ("___________________");
@@ -8,15 +11,16 @@ function printMatrix (M){
         console.log (M[i]);   
     console.log ("___________________");
 }
+
 function check (i, j, n) {
    if (  i >= 0 && j >= 0 && i < n && j < n)
        return true;
    return false;   
 }
+
 function randInt (n) {
    return Math.floor(Math.random () * n);
 }
-
 
 function gen_heuristic (n){  
   var M = initMatrix (n);
@@ -37,7 +41,6 @@ function gen_heuristic (n){
   return M;
 }
 
-
 function shuffleArray(d) {
   for (var c = d.length - 1; c > 0; c--) {
     var b = Math.floor(Math.random() * (c + 1));
@@ -45,8 +48,8 @@ function shuffleArray(d) {
     d[c] = d[b];
     d[b] = a;
   }
-  return d
-};
+  return d;
+}
 
 function use_helper (soluciones, helper) {
    var pos = -1;
@@ -91,9 +94,7 @@ function gen_solution (M, helper, n) {
         x =  soluciones[ idx ].x;
         y =  soluciones[ idx ].y;
         step++;
-        M[x][y] = step;
-       //console.log ("step: " + step);
-       
+        M[x][y] = step;       
     }
     return false;
 } 
@@ -111,19 +112,11 @@ function initMatrix (n) {
     return matrix;
 }
 
+//Genera la tabla limpia deacuerdo con el tamaño ingresado "n"
+
 generar.onclick = function () {
     tablero.innerHTML = '';
     var n = parseInt(document.getElementById('lados').value);
-    
- /*   for( var i = 0; i < 1000; i++) {
-        var M = initMatrix (n);
-        var helper = gen_heuristic (n);
-        if (gen_solution (M, helper, n) ) {
-            printMatrix (M);
-            break;
-        }
-    }
-    */
     var tabla = document.createElement('table');
     tabla.border = "1";
     for (var i = 0; i < n; i++) {
@@ -133,16 +126,14 @@ generar.onclick = function () {
             if (i % 2 == 0 && j % 2 != 0 || i % 2 != 0 && j % 2 == 0) {
                 celda.setAttribute('class', 'negro');
             }
-           // var p = document.createElement('p');
-           //p.innerHTML = M[i][j];
-           // celda.appendChild(p);
-            
             fila.appendChild(celda);
         }
         tabla.appendChild(fila);
     }
     tablero.appendChild(tabla);
 }
+
+//Genera las soluciones al problema.
 
 solucion.onclick = function () {
     tablero.innerHTML = '';
@@ -169,7 +160,7 @@ solucion.onclick = function () {
             var p = document.createElement('p');
             p.innerHTML = M[i][j];
             celda.appendChild(p);
-            
+
             fila.appendChild(celda);
         }
         tabla.appendChild(fila);
@@ -177,49 +168,18 @@ solucion.onclick = function () {
     tablero.appendChild(tabla);
 }
 
-var pasos = document.getElementById("paso");
+//Genera la solucion paso a paso al darle click al boton.
 
 pasos.onclick = function(){
-    tablero.innerHTML = '';
-    var n = parseInt(document.getElementById('lados').value);
-    
-    for( var i = 0; i < 1000; i++) {
-        var M = initMatrix (n);
-        var helper = gen_heuristic (n);
-        if (gen_solution (M, helper, n) ) {
-            pasoApaso(M);
-            break;
-        }
+  var srt = 1;
+  var n = parseInt(document.getElementById('lados').value);
+  var call = document.getElementsByTagName("td");
+
+  for(var i = 0; i<call.length; srt++){
+    if (call[i]== srt) {
+      call[i].innerHTML = srt;
     }
-
-    var tabla = document.createElement('table');
-    tabla.border = "1";
-    for (var i = 0; i < n; i++) {
-        var fila = document.createElement('tr');
-        for (var j = 0; j < n; j++) {
-            var celda = document.createElement('td');
-            if (i % 2 == 0 && j % 2 != 0 || i % 2 != 0 && j % 2 == 0) {
-                celda.setAttribute('class', 'negro');
-            }
-            var p = document.createElement('p');
-            for(var k = 0; k<n; k++){
-              if(M[i][j]==k)
-              p.innerHTML = M[i][j];
-            }
-            celda.appendChild(p);
-            
-            fila.appendChild(celda);
-        }
-        tabla.appendChild(fila);
-    }
-    tablero.appendChild(tabla);
-}
-
-function pasoApaso(M){
-    var n = parseInt(document.getElementById('lados').value);
-
-    console.log ("___________________");
-    for (var i = 0; i < M.length; i++)
-        console.log (M[i][0]);   
-    console.log ("___________________");
+    srt = 0;
+  }
+  srt++;
 }
